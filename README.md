@@ -8,7 +8,7 @@
 
 ## HOW TO RUN FRAMEWORK:
 - Clone/download repo repo
-- Run "npm start" for run CI/CD
+- Run "npm test" for run CI/CD
 
 ### TO RUN ON POSTMAN:
 - Import the postman collection in the collection and collection env in the env, and you can run collection
