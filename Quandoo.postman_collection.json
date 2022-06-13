@@ -1,0 +1,1019 @@
+{
+	"info": {
+		"_postman_id": "d301d5f7-f4ba-4088-abb3-085dae53bfac",
+		"name": "Quandoo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7436172"
+	},
+	"item": [
+		{
+			"name": "List Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response has page\", () => {",
+							"    const {page} = jsonData",
+							"    pm.expect(page).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has per_page\", () => {",
+							"    const {per_page} = jsonData;",
+							"    pm.expect(per_page).to.be.a(\"number\");",
+							"});",
+							"",
+							"pm.test(\"Response has total\", () => {",
+							"    const {total} = jsonData",
+							"    pm.expect(total).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has total_page\", () => {",
+							"    const {total_pages} = jsonData",
+							"    pm.expect(total_pages).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response data has id\", () => {",
+							"    const {id} = jsonData.data[0]",
+							"    pm.expect(id).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response data has email\", () => {",
+							"    const {email} = jsonData.data[0]",
+							"    pm.expect(email).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has first_name\", () => {",
+							"    const {first_name} = jsonData.data[0]",
+							"    pm.expect(first_name).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has last_name\", () => {",
+							"    const {last_name} = jsonData.data[0]",
+							"    pm.expect(last_name).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has avatar\", () => {",
+							"    const {avatar} = jsonData.data[0]",
+							"    pm.expect(avatar).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has 6 items per page\", () => {",
+							"    const {data} = jsonData",
+							"    pm.expect(data.length).to.be.equal(6);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/users?page=2",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response data has id\", () => {",
+							"    const {id} = jsonData.data",
+							"    pm.expect(id).to.be.equal(2);",
+							"});",
+							"",
+							"pm.test(\"Response data has email\", () => {",
+							"    const {email} = jsonData.data",
+							"    pm.expect(email).to.be.equal('janet.weaver@reqres.in');",
+							"});",
+							"",
+							"pm.test(\"Response data has first_name\", () => {",
+							"    const {first_name} = jsonData.data",
+							"    pm.expect(first_name).to.be.equal('Janet');",
+							"});",
+							"",
+							"pm.test(\"Response data has last_name\", () => {",
+							"    const {last_name} = jsonData.data",
+							"    pm.expect(last_name).to.be.equal('Weaver');",
+							"});",
+							"",
+							"pm.test(\"Response data has avatar\", () => {",
+							"    const {avatar} = jsonData.data",
+							"    pm.expect(avatar).to.be.equal('https://reqres.in/img/faces/2-image.jpg');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/users/2",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single User Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 404', () =>{",
+							"    pm.response.to.have.status(404)",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/users/23",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LIST <Resource>",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response has page\", () => {",
+							"    const {page} = jsonData",
+							"    pm.expect(page).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has per_page\", () => {",
+							"    const {per_page} = jsonData;",
+							"    pm.expect(per_page).to.be.a(\"number\");",
+							"});",
+							"",
+							"pm.test(\"Response has total\", () => {",
+							"    const {total} = jsonData",
+							"    pm.expect(total).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has total_page\", () => {",
+							"    const {total_pages} = jsonData",
+							"    pm.expect(total_pages).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response data has id\", () => {",
+							"    const {id} = jsonData.data[0]",
+							"    pm.expect(id).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response data has name\", () => {",
+							"    const {name} = jsonData.data[0]",
+							"    pm.expect(name).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has year\", () => {",
+							"    const {year} = jsonData.data[0]",
+							"    pm.expect(year).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response data has colour\", () => {",
+							"    const {color} = jsonData.data[0]",
+							"    pm.expect(color).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has pantone_value\", () => {",
+							"    const {pantone_value} = jsonData.data[0]",
+							"    pm.expect(pantone_value).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has 6 items per page\", () => {",
+							"    const {data} = jsonData",
+							"    pm.expect(data.length).to.be.equal(6);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/unknown",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"unknown"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SINGLE <Resource>",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response data has id\", () => {",
+							"    const {id} = jsonData.data",
+							"    pm.expect(id).to.be.equal(2);",
+							"});",
+							"",
+							"pm.test(\"Response data has name\", () => {",
+							"    const {name} = jsonData.data",
+							"    pm.expect(name).to.be.equal('fuchsia rose');",
+							"});",
+							"",
+							"pm.test(\"Response data has year\", () => {",
+							"    const {year} = jsonData.data",
+							"    pm.expect(year).to.be.equal(2001);",
+							"});",
+							"",
+							"pm.test(\"Response data has color\", () => {",
+							"    const {color} = jsonData.data",
+							"    pm.expect(color).to.be.equal('#C74375');",
+							"});",
+							"",
+							"pm.test(\"Response data has pantone_value\", () => {",
+							"    const {pantone_value} = jsonData.data",
+							"    pm.expect(pantone_value).to.be.equal('17-2031');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/unknown/2",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"unknown",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single <Resource> Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 404', () =>{",
+							"    pm.response.to.have.status(404)",
+							"})",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/api/unknown/23",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"unknown",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 201', () =>{",
+							"    pm.response.to.have.status(201)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response has id\", () => {",
+							"    const {id} = jsonData",
+							"    pm.expect(id).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response has name\", () => {",
+							"    const {name} = jsonData",
+							"    pm.expect(name).to.be.equal('morpheus');",
+							"});",
+							"",
+							"pm.test(\"Response has job\", () => {",
+							"    const {job} = jsonData",
+							"    pm.expect(job).to.be.equal('leader');",
+							"});",
+							"",
+							"pm.test(\"Response has createdAt\", () => {",
+							"    const {createdAt} = jsonData",
+							"    pm.expect(createdAt).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"morpheus\",\n    \"job\": \"leader\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/users",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response has name\", () => {",
+							"    const {name} = jsonData",
+							"    pm.expect(name).to.be.equal('morpheus');",
+							"});",
+							"",
+							"pm.test(\"Response has job\", () => {",
+							"    const {job} = jsonData",
+							"    pm.expect(job).to.be.equal('zion resident');",
+							"});",
+							"",
+							"pm.test(\"Response has createdAt\", () => {",
+							"    const {updatedAt} = jsonData",
+							"    pm.expect(updatedAt).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"morpheus\",\n    \"job\": \"zion resident\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/users/2",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Patch",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response has name\", () => {",
+							"    const {name} = jsonData",
+							"    pm.expect(name).to.be.equal('morpheus');",
+							"});",
+							"",
+							"pm.test(\"Response has job\", () => {",
+							"    const {job} = jsonData",
+							"    pm.expect(job).to.be.equal('zion resident');",
+							"});",
+							"",
+							"pm.test(\"Response has createdAt\", () => {",
+							"    const {updatedAt} = jsonData",
+							"    pm.expect(updatedAt).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"morpheus\",\n    \"job\": \"zion resident\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/users/2",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 204', () =>{",
+							"    pm.response.to.have.status(204)",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"morpheus\",\n    \"job\": \"zion resident\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/users/2",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register-Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response has id\", () => {",
+							"    const {id} = jsonData",
+							"    pm.expect(id).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has token\", () => {",
+							"    const {token} = jsonData",
+							"    pm.expect(token).to.be.a('string');",
+							"    pm.environment.set('token',token)",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"eve.holt@reqres.in\",\n    \"password\": \"pistol\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/register",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register-Unsuccessful No password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 400', () =>{",
+							"    pm.response.to.have.status(400)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response has id\", () => {",
+							"    const {error} = jsonData",
+							"    pm.expect(error).to.be.equal('Missing password');",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"eve.holt@reqres.in\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/register",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register-Unsuccessful No Email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 400', () =>{",
+							"    pm.response.to.have.status(400)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response has id\", () => {",
+							"    const {error} = jsonData",
+							"    pm.expect(error).to.be.equal('Missing email or username');",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"pistol\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/register",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login- Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"",
+							"pm.test(\"Response has token\", () => {",
+							"    const {token} = jsonData",
+							"    pm.expect(token).to.be.a('string');",
+							"    pm.environment.set('token',token)",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"eve.holt@reqres.in\",\n    \"password\": \"pistol\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/login",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-Unsuccessful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 400', () =>{",
+							"    pm.response.to.have.status(400)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response has id\", () => {",
+							"    const {error} = jsonData",
+							"    pm.expect(error).to.be.equal('Missing password');",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"eve.holt@reqres.in\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/login",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login-Unsuccessful No Email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 400', () =>{",
+							"    pm.response.to.have.status(400)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Response has id\", () => {",
+							"    const {error} = jsonData",
+							"    pm.expect(error).to.be.equal('Missing email or username');",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"pistol\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/register",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delayed Response",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () =>{",
+							"    pm.response.to.have.status(200)",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response has page\", () => {",
+							"    const {page} = jsonData",
+							"    pm.expect(page).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has per_page\", () => {",
+							"    const {per_page} = jsonData;",
+							"    pm.expect(per_page).to.be.a(\"number\");",
+							"});",
+							"",
+							"pm.test(\"Response has total\", () => {",
+							"    const {total} = jsonData",
+							"    pm.expect(total).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has total_page\", () => {",
+							"    const {total_pages} = jsonData",
+							"    pm.expect(total_pages).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response data has id\", () => {",
+							"    const {id} = jsonData.data[0]",
+							"    pm.expect(id).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response data has email\", () => {",
+							"    const {email} = jsonData.data[0]",
+							"    pm.expect(email).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has first_name\", () => {",
+							"    const {first_name} = jsonData.data[0]",
+							"    pm.expect(first_name).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has last_name\", () => {",
+							"    const {last_name} = jsonData.data[0]",
+							"    pm.expect(last_name).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has avatar\", () => {",
+							"    const {avatar} = jsonData.data[0]",
+							"    pm.expect(avatar).to.be.a('string');",
+							"});",
+							"",
+							"pm.test(\"Response data has 6 items per page\", () => {",
+							"    const {data} = jsonData",
+							"    pm.expect(data.length).to.be.equal(6);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"pistol\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/users?delay=3",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "delay",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

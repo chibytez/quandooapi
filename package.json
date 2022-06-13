@@ -1,0 +1,13 @@
+{
+  "name": "Quandoapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run Quandoo.postman_collection.json --environment quandoo_env.json"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
